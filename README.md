@@ -1,13 +1,13 @@
 # QuiwayJs
 create and handle the shortcuts for your website, very easily and effectively  
 
-##Author
+## Author
 Yousef Neji
 
-##Dependencies
+## Dependencies
 none
 
-##Quick Documentation 
+## Quick Documentation 
 a shortcut is a list of keys names(keyboard keys).
 first to know!
 this library offer two types of shortcut:
@@ -46,9 +46,12 @@ in this case it will return the index which is 0
 */
 ```
 **notice**: shortcuts and keysmap are stored in two different arrays.
+
 **_whild cards_**: 
+
 (\*) asterisk: when including this character in your shortcut it will play the role of any key.
+
 (timing) **number**: this is optional parameter you can pass to the function _**defineShortCut**_() when adding a keysmap type, it defines maximum time in **milliseconds** allowed between keys presses. it means if you press the first key then you pass more then this time before the second key press the keysmap will fail and not gonna pass.
 
-##License
+## License
 MIT
