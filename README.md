@@ -83,7 +83,7 @@ The interface now support disabling or enabling the shortcut by changing a the p
 or **comboActivated** for combos to false(version 1.0.5).
 
 ## Change Log
-# version 1.0.5
+### version 1.0.5
 added properties : **shortcutActivated** and **comboActivated** to allow user trigger using or not to use shortcuts and combos
 added functionality : `Interactive mode` this mode allows the user to constraint his own shortcut and change it interactively, you can start this mode and also stop it!
 fixed bugs : error : (trying to modify a constant) is fixed
