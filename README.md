@@ -35,7 +35,7 @@ quiway.bind('ctrl+alt+e',function(){
   console.log('hello world');
 });
 //combo 
-quiway.unbind('d,i,v',function(){
+quiway.bind('d,i,v',function(){
   console.log('true combo string!');
 });
 ```
