@@ -49,8 +49,7 @@ to check the existence of a shortcut with it callback is using **check**(shortcu
 ```javascript
 quiway.check('d,i,v',callback);
 /*
-the check function return either false or the index of the shortcut in the containing array.
-in this case it will return the index which is 0
+the check function return the index of the shortcut or -1 just like ordinary Array.findIndex 
 */
 ```
 to replace an existing shortcut for a callback is using **replace**(callback,shortcut):
