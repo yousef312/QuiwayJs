@@ -8,7 +8,7 @@ Yousef Neji
 none
 
 ## Version
-1.0.5
+2.0.0
 
 ## Quick Documentation 
 a shortcut is a list of keys names(keyboard keys).
