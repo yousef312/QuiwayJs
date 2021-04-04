@@ -1,5 +1,5 @@
 /**
- * Quiway.js 4.0.0
+ * Quiway.js 2.0.0
  *
  * Copyright 2018, yousef neji
  * Licensed under the MIT license.
