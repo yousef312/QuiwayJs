@@ -1,5 +1,5 @@
 /**
- * Quiway.js 1.0.0
+ * Quiway.js 4.0.0
  *
  * Copyright 2018, yousef neji
  * Licensed under the MIT license.
@@ -25,6 +25,11 @@
  * all thought the system will try to block this default one but some of them may still work like ctrl+t which open
  * new tab and other ones.
  * 
+ * 
+ * Tricks:
+ * here is a simple trick, what to do if I just want to stop a default keybinding like (ctrl+r) that does
+ * the window reload, you can simply assing to this shortcut a enmpty callback like that `quiway.bind('ctrl+r')` you don't really
+ * have to pass a callback as a quiway empty optimal generated callback will be there for you.
  */
 (function(root,Quiway){
     'uses strict';
@@ -36,6 +41,11 @@
         root.Quiway = Quiway();
     }
 }(this,function(){
+
+    // fixed bug in version 2.0.0
+    // the library stop all my other callbacks to ceratin event such as mousedown event
+    // mouse up event
+    // and window blur event
 
     // for major support those steps must be implimented
     if([].findIndex === undefined)
@@ -72,12 +82,6 @@
          * @type {Array}
          */
         this.shortcutslist = [];
-
-        /**
-         * Holds the defined simple shortcuts list, to add new shortcut use `bind`.
-         * @type {Array}
-         */
-        this.simplecuts = [];
 
         /**
          * Holds the defined combo list, to new combo use `bind`.
@@ -139,11 +143,7 @@
          * @readonly
          * @type {function}
          */
-        this.QEF = function(){
-            console.log('I am Quiway escape function!');
-            console.warn('Shortcut works! yet no function was passed with it so this default one was replaced');
-            console.warn('note:this function will always replace any shortcut with no callback given');
-        };
+        this.QEF = function(){};
 
         /**
          * Holds the keys states whether they are pressed or not.
@@ -152,15 +152,15 @@
         this.keysuite = {};
 
         // packing up
-        window.onkeydown = function(e){
+        window.addEventListener('keydown',function(e){
             _this.handleKeydown.call(_this,e)
-        }
-        window.onkeyup = function(e){
+        });
+        window.addEventListener('keyup',function(e){
             _this.handleKeyup.call(_this,e)
-        }
-        window.onblur = function(){
+        });
+        window.addEventListener('blur',function(){
             _this.blur.call(_this);
-        }
+        })
     }
 
     quiway.prototype = {
@@ -528,7 +528,7 @@
          * @param {number} timing optional parameter defined the minimum time between key presses
          * so the shortcut is performed!(only for combos)
          */
-        bind : function( shortcut = 'ctrl+q' , callback = function(){console.log('shortcut launch succefully!')} , timing=500){
+        bind : function( shortcut = 'ctrl+q' , callback , timing=500){
             //do the check
             if(typeof shortcut !=='string')
             {
@@ -771,7 +771,7 @@
         check : function(shortcut){
 
             if(shortcut.indexOf('+') !== -1)
-            {   
+            {
                 return this.shortcutslist.findIndex((a)=> a !== undefined && a.shortcut.join('+') === shortcut);
             }
             else if(shortcut.indexOf(',') !== -1)
