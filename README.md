@@ -11,6 +11,32 @@ none
 2.0.0
 
 ## Quick Documentation 
+
+#### A very important note you should read
+```JavaScript
+// you must listen to those window event in this way
+window.addEventListener('blur',function(){
+  ... your callback
+})
+window.addEventListener('keydown',function(){
+  ... your callback
+})
+window.addEventListener('keyup',function(){
+  ... your callback
+})
+// and note like that!!!
+// because the assingment will delete other callbacks for this event including our library callbacks
+window.onblur = function(){
+  ... your callback
+}
+window.onkeydown = function(){
+  ... your callback
+}
+window.onkeyup = function(){
+  ... your callback
+}
+```
+
 a shortcut is a list of keys names(keyboard keys).
 first to know!
 this library offer three types of shortcut:
