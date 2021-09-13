@@ -1,5 +1,5 @@
 /**
- * Quiway.js 2.0.0
+ * Quiway.js 3.0.0
  *
  * Copyright 2018, yousef neji
  * Licensed under the MIT license.
@@ -106,7 +106,7 @@
          * Holds the different allowed keys to form the sortcut
          * @type {Array}
          */
-        this.KEYS = ['ctrl','shift','alt','altGraph','capslock','tab','backspace','enter','meta',
+        this.KEYS = ['command'/*For Mac OS*/,'ctrl','shift','alt','altGraph','capslock','tab','backspace','enter','meta',
             'space','escape','pageup','pagedown','home','insert','delete','end','arrowup','arrowdown','arrowleft',
             "arrowright",'1','2','3','4','5','6','7','8','9','0','a','b','c','d','e','f','g','h','i','j','k','l','m',
             'n','o','p','q','r','s','t','u','v','w','x','y','z','*','f1','f2','f3','f4','f5','f6','f7','f8','f9','f10','f11'];
@@ -134,7 +134,7 @@
 
         /**
          * Used in the interactive mode to hold the shortcut that going to be builded
-         * @type {Array}
+         * @type {Array<Array>}
          */
         this.toBuild = [[],[]];
         
@@ -192,15 +192,19 @@
             var callback = this.toBuild[1][1];
 
             var obj = this.shortcutslist.find((a)=> a.callback.toString() === callback.toString());
+            let exist = this.check(shortcut.join('+')) !== -1;
 
-            if(obj !== undefined)
+            if(obj !== undefined && !exist)
             {
                 this.unbind(obj.shortcut.join('+'),obj.callback);
                 var res = this.bind(shortcut.join('+'),this.toBuild[1][1]);
 
                 this.toBuild = [[],[]];
+                this.intercativeMode = false;
                 return res === false ? res : shortcut;
             }
+            this.toBuild = [[],[]];
+            this.intercativeMode = false;
             return false;
 
         },
@@ -530,7 +534,7 @@
          */
         bind : function( shortcut = 'ctrl+q' , callback , timing=500){
             //do the check
-            if(typeof shortcut !=='string')
+            if(typeof shortcut !== 'string')
             {
                 console.warn('Quiway warn you:\nthe given shortcut not string!');
                 return;
@@ -539,7 +543,6 @@
             timing = typeof timing !== 'number' ? 500 : timing;
             
             //take apart the shortcut and anlyse it 
-
             if(this.KEYS.indexOf(shortcut) !== -1)
             {
                 // means the shortcut is constrained out of one single key
@@ -562,7 +565,6 @@
                 var shortcuti = this.supervise(shortcut);
                 if(shortcut !== false)
                 {
-
                     var obj = {
                         shortcut : shortcuti,
                         progress : new Array(shortcuti.length).fill(false,0,shortcuti.length),
@@ -613,7 +615,6 @@
                 
                 if(shortcut !== false)
                 {
-                
                     var obj = {
                         key : shortcuti[0],
                         duration : shortcuti[1],
@@ -784,7 +785,6 @@
             }
             else
             {
-                
                 return this.shortcutslist.findIndex((a)=> a !== undefined && a.shortcut[0] === shortcut);
             }
         },
